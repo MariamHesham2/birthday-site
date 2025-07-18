@@ -170,14 +170,44 @@
   <source src="habeeby.mp3" type="audio/mpeg">
 </audio>
 
-  <!-- <h1>happy <span class="highlight">26th</span> birthday!</h1> -->
      <h1>happy birthday my lover boy ! i wish i was with you to celebrate your special day ,
       <br/> but my heart is right there beside you . <br/> May this year bring you closer to all your dreams  </h1>
-
   <p>Abdullah Habebe</p>
+  <!-- <button onclick="document.getElementById('birthday-song').play()" style="position: fixed; bottom: 20px; right: 20px; padding: 10px;">🎵 Play Music</button> -->
+<button id="music-toggle" style="position: fixed; bottom: 20px; right: 20px; padding: 10px;">
+  🎵 Play Music
+</button>
+
 </div>
 
-  <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script  src="./script.js"></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script>
+  const audio = document.getElementById('birthday-song');
+  const button = document.getElementById('music-toggle');
+
+  button.addEventListener('click', function () {
+    if (audio.paused) {
+      audio.play();
+      button.textContent = '🔇 Stop Music';
+    } else {
+      audio.pause();
+      button.textContent = '🎵 Play Music';
+    }
+  });
+
+  // Optional: make sure it starts only on first interaction (to avoid autoplay issues)
+  document.addEventListener('click', function playAudioOnce() {
+    if (audio && audio.paused) {
+      audio.play().then(() => {
+        button.textContent = '🔇 Stop Music';
+      }).catch((err) => {
+        console.log("Autoplay blocked:", err);
+      });
+    }
+    document.removeEventListener('click', playAudioOnce);
+  });
+</script>
+
 
 </body>
 </html>
